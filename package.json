@@ -1,0 +1,27 @@
+{
+    "name": "octopus-tracker-price-viewer",
+    "description": "View the Octopus Energy tracker tariff daily price ",
+    "version": "1.0.0",
+    "private": true,
+    "devDependencies": {
+        "jest": "^29.2.1"
+    },
+    "scripts": {
+        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+    },
+    "jest": {
+        "testMatch": [
+            "**/__tests__/**/*.[jt]s?(x)",
+            "**/?(*.)+(spec|test).[jt]s?(x)",
+            "**/__tests__/**/*.mjs?(x)",
+            "**/?(*.)+(spec|test).mjs?(x)"
+        ],
+        "moduleFileExtensions": [
+            "mjs",
+            "js"
+        ]
+    },
+    "dependencies": {
+        "aws-sdk": "^2.1415.0"
+    }
+}
