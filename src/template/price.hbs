@@ -19,14 +19,23 @@
         th, td {
             padding: 5px 12px;
             text-align: center;
-            font-size: 24px;
+            font-size: 10vw;
             color: #F7F7F7;
         }
 
         .lastUpdateTime {
-            font-size: 12px;
+            font-size: 5vw;
             color: #C7C7C7;
             text-align: center;
+        }
+
+        @media screen and (min-width: 1200px) {
+            th, td {
+                font-size: 120px;
+            }
+            .lastUpdateTime {
+                font-size: 60px;
+            }
         }
     </style>
 </head>

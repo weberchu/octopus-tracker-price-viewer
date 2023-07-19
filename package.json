@@ -16,6 +16,9 @@
             "**/__tests__/**/*.mjs?(x)",
             "**/?(*.)+(spec|test).mjs?(x)"
         ],
+        "testPathIgnorePatterns" : [
+            ".aws-sam"
+        ],
         "moduleFileExtensions": [
             "mjs",
             "js"
@@ -23,6 +26,7 @@
     },
     "dependencies": {
         "aws-sdk": "^2.1415.0",
-        "handlebars": "^4.7.7"
+        "handlebars": "^4.7.7",
+        "node-fetch": "^3.3.1"
     }
 }
