@@ -54,7 +54,7 @@ const findPrice = (date, results) => {
         const from = Date.parse(result.valid_from);
         const to = Date.parse(result.valid_to);
         return from <= date && date <= to;
-    }).value_inc_vat;
+    })?.value_inc_vat;
 }
 
 const getDateString = (date) => {
@@ -65,46 +65,47 @@ const getDateString = (date) => {
     });
 }
 
-const getSingleFuelPrice = async (url) => {
-    const today = Date.now()
-    const tomorrow = today + 24 * 60 * 60 * 1000;
-
+const getSingleFuelResult = async (url) => {
     const response = await fetch(url);
     const data = await response.json();
-    const todayPrice = findPrice(today, data.results);
-    const tomorrowPrice = findPrice(tomorrow, data.results);
-
-    return {
-        today: {
-            date: getDateString(today),
-            price: todayPrice,
-        },
-        tomorrow: {
-            date: getDateString(tomorrow),
-            price: tomorrowPrice,
-        }
-    }
+    return data.results;
 }
 
 export const getPrices = async () => {
-    const electricityPrice = await getSingleFuelPrice(electricityUrl);
-    const gasPrice = await getSingleFuelPrice(gasUrl);
+    const electricityPrices = await getSingleFuelResult(electricityUrl);
+    const gasPrices = await getSingleFuelResult(gasUrl);
 
-    return {
+    const today = Date.now()
+    const yesterday = today - 24 * 60 * 60 * 1000;
+    const tomorrow = today + 24 * 60 * 60 * 1000;
+
+    const prices = {
         prices: [
             {
-                date: electricityPrice.today.date,
-                electricityPrice: electricityPrice.today.price,
-                gasPrice: gasPrice.today.price,
+                date: getDateString(yesterday),
+                electricityPrice: findPrice(yesterday, electricityPrices)?.toFixed(2),
+                gasPrice: findPrice(yesterday, gasPrices)?.toFixed(2),
             },
             {
-                date: electricityPrice.tomorrow.date,
-                electricityPrice: electricityPrice.tomorrow.price,
-                gasPrice: gasPrice.tomorrow.price,
+                date: getDateString(today),
+                electricityPrice: findPrice(today, electricityPrices)?.toFixed(2),
+                gasPrice: findPrice(today, gasPrices)?.toFixed(2),
             }
         ],
         lastUpdateTime: new Date().toLocaleString('en-GB', {timeZone: 'Europe/London'})
     };
+
+    const tomorrowElectricityPrice = findPrice(tomorrow, electricityPrices)?.toFixed(2);
+    const tomorrowGasPrice = findPrice(tomorrow, gasPrices)?.toFixed(2);
+    if (tomorrowElectricityPrice || tomorrowGasPrice) {
+        prices.prices.push({
+            date: getDateString(tomorrow),
+            electricityPrice: tomorrowElectricityPrice,
+            gasPrice: tomorrowGasPrice,
+        });
+    }
+
+    return prices;
 }
 
 const generateHtml = (prices) => {

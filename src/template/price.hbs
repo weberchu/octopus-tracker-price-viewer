@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Date and Price Table</title>
+    <title>Tracker Price</title>
     <style>
         body {
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -17,24 +17,25 @@
         }
 
         th, td {
-            padding: 5px 12px;
+            padding: 0.4vw 3vw;
             text-align: center;
-            font-size: 10vw;
+            font-size: 8vw;
             color: #F7F7F7;
         }
 
         .lastUpdateTime {
-            font-size: 5vw;
+            font-size: 4vw;
             color: #C7C7C7;
             text-align: center;
         }
 
         @media screen and (min-width: 1200px) {
             th, td {
-                font-size: 120px;
+                padding: 4.8px 36px;
+                font-size: 96px;
             }
             .lastUpdateTime {
-                font-size: 60px;
+                font-size: 48px;
             }
         }
     </style>
@@ -52,8 +53,8 @@
     {{#each prices}}
         <tr>
             <td>{{this.date}}</td>
-            <td>{{this.electricityPrice}}</td>
-            <td>{{this.gasPrice}}</td>
+            <td>{{this.electricityPrice}}p</td>
+            <td>{{this.gasPrice}}p</td>
         </tr>
     {{/each}}
     </tbody>
