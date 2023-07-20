@@ -92,7 +92,13 @@ export const getPrices = async () => {
                 gasPrice: findPrice(today, gasPrices)?.toFixed(2),
             }
         ],
-        lastUpdateTime: new Date().toLocaleString('en-GB', {timeZone: 'Europe/London'})
+        lastUpdateTime: new Date().toLocaleString('en-GB', {
+            timeZone: 'Europe/London',
+            day: '2-digit',
+            month: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit'
+        })
     };
 
     const tomorrowElectricityPrice = findPrice(tomorrow, electricityPrices)?.toFixed(2);
