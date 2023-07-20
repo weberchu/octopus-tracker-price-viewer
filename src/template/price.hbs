@@ -53,8 +53,16 @@
     {{#each prices}}
         <tr>
             <td>{{this.date}}</td>
-            <td>{{this.electricityPrice}}p</td>
-            <td>{{this.gasPrice}}p</td>
+            <td>
+                {{#if this.electricityPrice}}
+                    {{this.electricityPrice}}p
+                {{/if}}
+            </td>
+            <td>
+                {{#if this.gasPrice}}
+                    {{this.gasPrice}}p
+                {{/if}}
+            </td>
         </tr>
     {{/each}}
     </tbody>

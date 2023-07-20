@@ -33,7 +33,7 @@ Resources:
         CloudWatchEvent:
           Type: Schedule
           Properties:
-            Schedule: cron(0 15,16,17,18 * * ? *)
+            Schedule: cron(1,31 12-21 * * ? *)
       Role: !GetAtt PriceGeneratorRole.Arn
       MemorySize: 128
       Timeout: 100
