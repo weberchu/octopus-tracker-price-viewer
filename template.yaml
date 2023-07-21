@@ -14,21 +14,16 @@ Transform:
 
 # Resources declares the AWS resources that you want to include in the stack
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
-Resources:  
-  # This is the Lambda function definition associated with the source code: sqs-payload-logger.js. For all available properties, see
-  # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+Resources:
   PriceGenerator:
     Type: AWS::Serverless::Function
     Properties:
-      Description: A Lambda function that logs the payload of messages sent to an associated SQS queue.
+      Description: A Lambda function that generate Octopus Tracker prices as a HTML page in S3.
       FunctionName: price-generator
       Runtime: nodejs18.x
       Architectures:
         - x86_64
       Handler: src/handlers/price-generator.handler
-      # This property associates this Lambda function with a scheduled CloudWatch Event. For all available properties, see
-      # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#schedule
-      # This example runs every hour.
       Events:
         CloudWatchEvent:
           Type: Schedule
