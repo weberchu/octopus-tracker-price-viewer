@@ -1,27 +1,27 @@
-import { jest } from '@jest/globals';
-
 const electricityJson = jest.fn();
 const gasJson = jest.fn();
+const mockDateNow = jest.fn();
 
 jest.mock("node-fetch", () => {
-    return (url) => {
+    return (url: string) => {
         return Promise.resolve({
-            json: url.contains("electricity-tariffs") ? electricityJson : gasJson
+            json: url.includes("electricity-tariffs") ? electricityJson : gasJson
         })
     }
 });
 
-import { getPrices, handler } from '../../../src/handlers/price-generator.mjs';
+import { getPrices } from '../../../src/handlers/price-generator';
 
 describe('price handler', function () {
     beforeEach(() => {
-        Date.now = jest.fn();
+        // @ts-ignore
+        Date.now = mockDateNow;
         electricityJson.mockReset();
         gasJson.mockReset();
     });
 
     it('should return yesterday, today and tomorrow prices', async () => {
-        Date.now.mockReturnValue(1689789005220); // Jul 19 2023 18:50:05 GMT+0100
+        mockDateNow.mockReturnValue(1689789005220); // Jul 19 2023 18:50:05 GMT+0100
         electricityJson.mockResolvedValue({
             count: 2,
             next: null,
@@ -84,24 +84,24 @@ describe('price handler', function () {
         expect(prices.prices).toEqual([
             {
                 date: "18/07",
-                electricityPrice: 18.333,
-                gasPrice: 3.675,
+                electricityPrice: "18.33",
+                gasPrice: "3.67",
             },
             {
                 date: "19/07",
-                electricityPrice: 17.199,
-                gasPrice: 3.8535,
+                electricityPrice: "17.20",
+                gasPrice: "3.85",
             },
             {
                 date: "20/07",
-                electricityPrice: 15.1045,
-                gasPrice: 3.8115,
+                electricityPrice: "15.10",
+                gasPrice: "3.81",
             }
         ]);
     });
 
     it('should handle single fuel availability', async () => {
-        Date.now.mockReturnValue(1689789005220); // Jul 19 2023 18:50:05 GMT+0100
+        mockDateNow.mockReturnValue(1689789005220); // Jul 19 2023 18:50:05 GMT+0100
         electricityJson.mockResolvedValue({
             count: 2,
             next: null,
@@ -157,18 +157,18 @@ describe('price handler', function () {
         expect(prices.prices).toEqual([
             {
                 date: "18/07",
-                electricityPrice: 18.333,
-                gasPrice: 3.675,
+                electricityPrice: "18.33",
+                gasPrice: "3.67",
             },
             {
                 date: "19/07",
-                electricityPrice: 17.199,
-                gasPrice: 3.8535,
+                electricityPrice: "17.20",
+                gasPrice: "3.85",
             },
             {
                 date: "20/07",
-                electricityPrice: null,
-                gasPrice: 3.8115,
+                electricityPrice: undefined,
+                gasPrice: "3.81",
             }
         ]);
     });

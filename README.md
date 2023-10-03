@@ -23,6 +23,11 @@ Install dependencies
 npm install
 ```
 
+Lint
+```
+npm run lint
+```
+
 Run tests
 ```
 npm run test

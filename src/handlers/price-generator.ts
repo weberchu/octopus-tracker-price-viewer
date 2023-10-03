@@ -2,6 +2,20 @@ import AWS from 'aws-sdk';
 import fs from 'fs';
 import Handlebars from "handlebars";
 import fetch from 'node-fetch';
+import { APIGatewayProxyEvent } from "aws-lambda";
+import { Result, StandardUnitRates } from "./types";
+import templateLocation from "../template/price.hbs";
+
+type Price = {
+    date: string
+    electricityPrice?: string
+    gasPrice?: string
+}
+
+type Prices = {
+    prices: Price[],
+    lastUpdateTime: string,
+}
 
 const s3 = new AWS.S3();
 const key = `price.html`;
@@ -31,7 +45,7 @@ const gasUrl =
     `/${octopusApi.gasTariffPrefix}${octopusApi.productCode}-${octopusApi.regionCode}` +
     `/${octopusApi.path.standardUnitRates}`;
 
-const uploadToS3 = async (fileContent) => {
+const uploadToS3 = async (fileContent: string) => {
     const params = {
         Bucket: bucketName,
         Key: key,
@@ -49,7 +63,7 @@ const uploadToS3 = async (fileContent) => {
     }
 }
 
-const findPrice = (date, results) => {
+const findPrice = (date: number, results: Result[]) => {
     return results.find((result) => {
         const from = Date.parse(result.valid_from);
         const to = Date.parse(result.valid_to);
@@ -57,7 +71,7 @@ const findPrice = (date, results) => {
     })?.value_inc_vat;
 }
 
-const getDateString = (date) => {
+const getDateString = (date: number) => {
     return new Date(date).toLocaleString('en-GB', {
         timeZone: "Europe/London",
         day: '2-digit',
@@ -65,9 +79,9 @@ const getDateString = (date) => {
     });
 }
 
-const getSingleFuelResult = async (url) => {
+const getSingleFuelResult = async (url: string) => {
     const response = await fetch(url);
-    const data = await response.json();
+    const data = await response.json() as StandardUnitRates;
     return data.results;
 }
 
@@ -79,7 +93,7 @@ export const getPrices = async () => {
     const yesterday = today - 24 * 60 * 60 * 1000;
     const tomorrow = today + 24 * 60 * 60 * 1000;
 
-    const prices = {
+    const prices: Prices = {
         prices: [
             {
                 date: getDateString(yesterday),
@@ -114,14 +128,16 @@ export const getPrices = async () => {
     return prices;
 }
 
-const generateHtml = (prices) => {
-    const template = fs.readFileSync("./src/template/price.hbs", {encoding: "utf8", flag: "r"});
+const generateHtml = (prices: Prices) => {
+    const template = fs.readFileSync(templateLocation, {encoding: "utf8", flag: "r"});
     const compiledTemplate = Handlebars.compile(template);
     return compiledTemplate(prices);
 }
 
-export const handler = async (event, context) => {
+export const handler = async (event: APIGatewayProxyEvent) => {
+    console.info("handler started");
     const prices = await getPrices();
+    console.info("prices generated");
     const htmlContent = generateHtml(prices);
     console.info("htmlContent = " + htmlContent);
     return await uploadToS3(htmlContent);
