@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`html-generator generateHtml should match snapshot 1`] = `
+"<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tracker Price</title>
+    <style>
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: #080808;
+            margin: 0;
+            padding: 0;
+        }
+
+        table {
+            margin: 10px auto;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 0.4vw 3vw;
+            text-align: center;
+            font-size: 8vw;
+            color: #F7F7F7;
+        }
+
+        .lastUpdateTime {
+            font-size: 6vw;
+            color: #878787;
+            text-align: center;
+        }
+
+        @media screen and (min-width: 1200px) {
+            th, td {
+                padding: 4.8px 36px;
+                font-size: 96px;
+            }
+            .lastUpdateTime {
+                font-size: 48px;
+            }
+        }
+    </style>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th></th>
+        <th>⚡️</th>
+        <th>🔥</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>10/07</td>
+            <td>
+                    1.0p
+            </td>
+            <td>
+                    2.0p
+            </td>
+        </tr>
+        <tr>
+            <td>11/07</td>
+            <td>
+                    3.0p
+            </td>
+            <td>
+                    4.0p
+            </td>
+        </tr>
+        <tr>
+            <td>12/07</td>
+            <td>
+                    5.0p
+            </td>
+            <td>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div class="lastUpdateTime">12:34:56</div>
+</body>
+</html>
+"
+`;

@@ -21,7 +21,7 @@
         "typescript": "^4.8.4"
     },
     "scripts": {
-        "unit": "jest --verbose",
+        "unit": "jest",
         "lint": "eslint '*.ts' --quiet --fix",
         "compile": "tsc",
         "test": "npm run compile && npm run unit"
