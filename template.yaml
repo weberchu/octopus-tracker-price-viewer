@@ -23,7 +23,7 @@ Resources:
       Runtime: nodejs18.x
       Architectures:
         - x86_64
-      Handler: price-generator.handler
+      Handler: handler.handler
       Events:
         CloudWatchEvent:
           Type: Schedule
@@ -41,7 +41,7 @@ Resources:
         Loader:
           - .hbs=file
         EntryPoints:
-          - src/handlers/price-generator.ts
+          - src/price-generator/handler.ts
   OctopusTrackerBucket:
     Type: AWS::S3::Bucket
     Properties:
