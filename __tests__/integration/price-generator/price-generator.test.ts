@@ -1,11 +1,15 @@
+import { Region } from "../../../src/price-generator/types";
+
 const electricityJson = jest.fn();
 const gasJson = jest.fn();
+const electricityUrl = "https://api.octopus.energy/v1/products/SILVER-FLEX-22-11-25/electricity-tariffs/E-1R-SILVER-FLEX-22-11-25-C/standard-unit-rates";
+const gasUrl = "https://api.octopus.energy/v1/products/SILVER-FLEX-22-11-25/gas-tariffs/G-1R-SILVER-FLEX-22-11-25-C/standard-unit-rates";
 
 jest.mock("node-fetch", () => {
     return (url: string) => {
         return Promise.resolve({
-            json: url.includes("electricity-tariffs") ? electricityJson :
-                url.includes("gas-tariffs") ? gasJson : jest.fn()
+            json: url === electricityUrl ? electricityJson :
+                url === gasUrl ? gasJson : jest.fn()
         })
     }
 });
@@ -79,9 +83,9 @@ describe('price-generator', function () {
                 ]
             })
 
-            const prices = await getPrices();
+            const prices = await getPrices(Region.London);
 
-            expect(prices.prices).toEqual([
+            expect(prices).toEqual([
                 {
                     date: "18/07",
                     electricityPrice: "18.33",
@@ -152,9 +156,9 @@ describe('price-generator', function () {
                 ]
             })
 
-            const prices = await getPrices();
+            const prices = await getPrices(Region.London);
 
-            expect(prices.prices).toEqual([
+            expect(prices).toEqual([
                 {
                     date: "18/07",
                     electricityPrice: "18.33",

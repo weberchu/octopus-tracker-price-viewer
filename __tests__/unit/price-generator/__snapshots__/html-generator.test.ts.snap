@@ -81,7 +81,7 @@ exports[`html-generator generateHtml should match snapshot 1`] = `
         </tr>
     </tbody>
 </table>
-<div class="lastUpdateTime">12:34:56</div>
+<div class="lastUpdateTime">20/11, 12:34</div>
 </body>
 </html>
 "

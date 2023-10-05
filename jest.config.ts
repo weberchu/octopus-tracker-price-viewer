@@ -13,6 +13,6 @@ export default {
   coverageProvider: "v8",
   testMatch: ["**/__tests__/**/*.test.ts"],
   moduleNameMapper: {
-    "\\.hbs$": "<rootDir>/__mocks__/fileMock.ts"
-  }
+    "\\.hbs$": "<rootDir>/__mocks__/fileMock.ts",
+  },
 };

@@ -22,7 +22,7 @@ const octopusApi = {
 const energyUrl = (info: EnergyInfo, region: Region) => {
     return `${octopusApi.baseProductUrl}${octopusApi.productCode}` +
     `/${info.tariffPath}` +
-    `/${info.tariffPrefix}${octopusApi.productCode}-${region}` +
+    `/${info.tariffPrefix}${octopusApi.productCode}-${region.code}` +
     `/${octopusApi.standardUnitRates}`;
 }
 
