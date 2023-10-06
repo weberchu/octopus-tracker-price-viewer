@@ -6,12 +6,18 @@ import { Region } from "./types";
 
 export const handler = async (event: APIGatewayProxyEvent) => {
     console.info("handler started");
-    const region = Region.London;
     const generationTimeStamp = new Date();
 
-    const prices = await getPrices(region);
-    console.info("prices generated");
-    const htmlContent = generateHtml(region, prices, generationTimeStamp);
-    console.info("htmlContent = " + htmlContent);
-    return await uploader.uploadToS3(htmlContent);
+    for (const region of Region.ALL) {
+        const prices = await getPrices(region);
+        console.info("[" + region.name + "] prices generated");
+
+        const htmlContent = generateHtml(region, prices, generationTimeStamp);
+        console.info("[" + region.name + "] htmlContent generated");
+
+        for (const pageName of region.pageNames) {
+            await uploader.uploadToS3(htmlContent, pageName);
+            console.info("[" + region.name + "] uploaded to " + pageName);
+        }
+    }
 }

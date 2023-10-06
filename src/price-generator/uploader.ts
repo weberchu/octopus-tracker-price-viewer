@@ -1,15 +1,14 @@
 import AWS from "aws-sdk";
 
-const key = `price.html`;
 const bucketName = 'octopus-tracker';
 
 class Uploader {
     private s3 = new AWS.S3();
 
-    public uploadToS3 = async (fileContent: string) => {
+    public uploadToS3 = async (fileContent: string, fileName: string) => {
         const params = {
             Bucket: bucketName,
-            Key: key,
+            Key: fileName,
             Body: fileContent,
             CacheControl: "max-age=10",
             ContentType: "text/html"

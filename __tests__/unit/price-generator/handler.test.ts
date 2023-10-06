@@ -35,17 +35,41 @@ const currentTime = new Date('2023-07-20T12:34:56Z');
 
 jest.useFakeTimers().setSystemTime(currentTime);
 
+const mockPrices = (region: Region) => {
+    return [
+        ...somePrices,
+        {
+            date: "12/07",
+            electricityPrice: region.code.charCodeAt(0) + ".0",
+            gasPrice: region.code.charCodeAt(0) + ".5",
+        },
+    ];
+};
+const mockHtmlContent = (region: Region) => {
+    return "some html content for " + region.name;
+}
+
 describe("handler", () => {
     test("should upload generated price HTML to S3", async () => {
-        mockGetPrices.mockResolvedValue(somePrices);
-        mockGenerateHtml.mockReturnValue("some-html");
+        mockGetPrices.mockImplementation(mockPrices);
+        mockGenerateHtml.mockImplementation(mockHtmlContent);
 
         await handler({} as APIGatewayProxyEvent);
 
-        expect(mockGetPrices).toBeCalledTimes(1);
-        expect(mockGenerateHtml).toBeCalledTimes(1);
-        expect(mockGenerateHtml).toBeCalledWith(Region.London, somePrices, currentTime);
-        expect(mockUploadToS3).toBeCalledTimes(1);
-        expect(mockUploadToS3).toBeCalledWith("some-html");
+        expect(mockGetPrices).toBeCalledTimes(Region.ALL.length);
+        for (const region of Region.ALL) {
+            expect(mockGetPrices).toHaveBeenCalledWith(region);
+        }
+        expect(mockGenerateHtml).toBeCalledTimes(Region.ALL.length);
+        for (const region of Region.ALL) {
+            expect(mockGenerateHtml).toBeCalledWith(region, mockPrices(region), currentTime);
+        }
+        const totalPageCount = Region.ALL.map(r => r.pageNames.length).reduce((p, c) => p + c);
+        expect(mockUploadToS3).toBeCalledTimes(totalPageCount);
+        for (const region of Region.ALL) {
+            for (const pageName of region.pageNames) {
+                expect(mockUploadToS3).toBeCalledWith(mockHtmlContent(region), pageName);
+            }
+        }
     });
 });

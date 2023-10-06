@@ -19,12 +19,12 @@ describe("Uploader", () => {
                 Location: "some-s3-location"
             });
 
-            await uploader.uploadToS3("some-content");
+            await uploader.uploadToS3("some-content", "some-place.html");
 
             expect(mockUpload).toHaveBeenCalledTimes(1);
             expect(mockUpload).toHaveBeenCalledWith({
                 Bucket: "octopus-tracker",
-                Key: "price.html",
+                Key: "some-place.html",
                 Body: "some-content",
                 CacheControl: "max-age=10",
                 ContentType: "text/html"
@@ -33,7 +33,7 @@ describe("Uploader", () => {
 
         test("should throw error when upload fails", async () => {
             mockUploadPromise.mockRejectedValue("some-error");
-            await expect(uploader.uploadToS3("some-content")).rejects.toBe("some-error");
+            await expect(uploader.uploadToS3("some-content", "some-place.html")).rejects.toBe("some-error");
         });
     });
 });

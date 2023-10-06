@@ -11,20 +11,20 @@ export type OctopusResult = {
 }
 
 export class Region {
-    static EasternEngland = new Region("Eastern England", "A", "eastern_england");
-    static EastMidlands = new Region("East Midlands", "B", "east_midlands");
-    static London = new Region("London", "C", "london");
-    static MerseysideAndNorthernWales = new Region("Merseyside and Northern Wales", "D", "merseyside_and_northern_wales");
-    static WestMidlands = new Region("West Midlands", "E", "west_midlands");
-    static NorthEasternEngland = new Region("North Eastern England", "F", "north_eastern_england");
-    static NorthWesternEngland = new Region("North Western England", "G", "north_western_england");
-    static SouthernEngland = new Region("Southern England", "H", "southern_england");
-    static SouthEasternEngland = new Region("South Eastern England", "J", "south_eastern_england");
-    static SouthernWales = new Region("Southern Wales", "K", "southern_wales");
-    static SouthWesternEngland = new Region("South Western England", "L", "south_western_england");
-    static Yorkshire= new Region("Yorkshire", "M", "yorkshire");
-    static SouthernScotland = new Region("Southern Scotland", "N", "southern_scotland");
-    static NorthernScotland = new Region("Northern Scotland", "P", "northern_scotland");
+    static EasternEngland = new Region("Eastern England", "A", ["eastern_england.html"]);
+    static EastMidlands = new Region("East Midlands", "B", ["east_midlands.html"]);
+    static London = new Region("London", "C", ["london.html", "price.html"]);
+    static MerseysideAndNorthernWales = new Region("Merseyside and Northern Wales", "D", ["merseyside_and_northern_wales.html"]);
+    static WestMidlands = new Region("West Midlands", "E", ["west_midlands.html"]);
+    static NorthEasternEngland = new Region("North Eastern England", "F", ["north_eastern_england.html"]);
+    static NorthWesternEngland = new Region("North Western England", "G", ["north_western_england.html"]);
+    static SouthernEngland = new Region("Southern England", "H", ["southern_england.html"]);
+    static SouthEasternEngland = new Region("South Eastern England", "J", ["south_eastern_england.html"]);
+    static SouthernWales = new Region("Southern Wales", "K", ["southern_wales.html"]);
+    static SouthWesternEngland = new Region("South Western England", "L", ["south_western_england.html"]);
+    static Yorkshire= new Region("Yorkshire", "M", ["yorkshire.html"]);
+    static SouthernScotland = new Region("Southern Scotland", "N", ["southern_scotland.html"]);
+    static NorthernScotland = new Region("Northern Scotland", "P", ["northern_scotland.html"]);
     static ALL = [
         Region.EasternEngland,
         Region.EastMidlands,
@@ -42,7 +42,7 @@ export class Region {
         Region.NorthernScotland,
     ];
 
-    constructor(readonly name: string, readonly code: string, readonly pageName: string) {}
+    constructor(readonly name: string, readonly code: string, readonly pageNames: string[]) {}
 }
 
 export type Price = {
