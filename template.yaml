@@ -53,6 +53,15 @@ Resources:
               - GET
             AllowedOrigins:
               - '*'
+      VersioningConfiguration:
+        Status: Enabled
+      LifecycleConfiguration:
+        Rules:
+          - Id: Housekeeping
+            Status: Enabled
+            NoncurrentVersionExpiration:
+              NewerNoncurrentVersions: 100
+              NoncurrentDays: 14
   CloudFrontDistribution:
     Type: AWS::CloudFront::Distribution
     Properties:
