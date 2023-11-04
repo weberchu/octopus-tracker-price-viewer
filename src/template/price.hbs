@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Tracker Price</title>
+    <title>Tracker Price - {{regionName}}</title>
     <style>
         body {
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -10,21 +10,37 @@
             margin: 0;
             padding: 0;
         }
-
         table {
             margin: 10px auto;
             border-collapse: collapse;
         }
-
         th, td {
             padding: 0.4vw 3vw;
             text-align: center;
             font-size: 8vw;
             color: #F7F7F7;
         }
-
-        .lastUpdateTime {
+        .last-update {
             font-size: 6vw;
+            color: #878787;
+            text-align: center;
+        }
+        .region {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            font-size: 4vw;
+            color: #878787;
+            text-align: center;
+        }
+        .expander {
+            width: 1.5em;
+        }
+        a {
+            text-decoration: none;
+        }
+        .region-link {
+            font-size: 4vw;
             color: #878787;
             text-align: center;
         }
@@ -34,11 +50,38 @@
                 padding: 4.8px 36px;
                 font-size: 96px;
             }
-            .lastUpdateTime {
+            .last-update {
+                font-size: 72px;
+            }
+            .region {
+                font-size: 48px;
+            }
+            .region-link {
                 font-size: 48px;
             }
         }
+
+        .region-selector {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: none;
+        }
+
+        .region-selector li {
+            position: relative;
+        }
     </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.region').on("click", function() {
+                const expander = $('.expander');
+                expander.html(expander.text() === '⏶' ? '⏷' : '⏶');
+                $(".region-selector").slideToggle(100);
+            });
+        });
+    </script>
 </head>
 <body>
 <table>
@@ -67,6 +110,17 @@
     {{/each}}
     </tbody>
 </table>
-<div class="lastUpdateTime">{{lastUpdateTime}}</div>
+<div class="last-update">{{lastUpdateTime}}</div>
+<div class="region">
+    <div>{{regionName}}</div>
+    <div class="expander">&#x23f7</div>
+</div>
+<ul class="region-selector">
+    <li>
+        {{#each otherRegions}}
+        <a href="{{this.link}}"><div class="region-link">{{this.regionName}}</div></a>
+        {{/each}}
+    </li>
+</ul>
 </body>
 </html>
