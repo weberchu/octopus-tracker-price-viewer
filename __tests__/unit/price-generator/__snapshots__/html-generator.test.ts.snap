@@ -35,9 +35,11 @@ exports[`html-generator generateHtml should match snapshot 1`] = `
             font-size: 4vw;
             color: #878787;
             text-align: center;
+            line-height: 1em;
         }
         .expander {
             width: 1.5em;
+            height: 1em;
         }
         a {
             text-decoration: none;
@@ -78,10 +80,20 @@ exports[`html-generator generateHtml should match snapshot 1`] = `
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script>
         $(document).ready(function() {
+            let isExpanded = false;
             $('.region').on("click", function() {
                 const expander = $('.expander');
-                expander.html(expander.text() === '⏶' ? '⏷' : '⏶');
+                expander.animate(
+                        { deg: isExpanded ? 0 : 180 },
+                        {
+                            duration: 100,
+                            step: function(now) {
+                                $(this).css({ transform: 'rotate(' + now + 'deg)' });
+                            }
+                        }
+                );
                 $(".region-selector").slideToggle(100);
+                isExpanded = !isExpanded;
             });
         });
     </script>
@@ -127,7 +139,7 @@ exports[`html-generator generateHtml should match snapshot 1`] = `
 <div class="last-update">20/11, 12:34</div>
 <div class="region">
     <div>West Midlands</div>
-    <div class="expander">&#x23f7</div>
+    <div class="expander">&triangledown;</div>
 </div>
 <ul class="region-selector">
     <li>

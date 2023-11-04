@@ -32,9 +32,11 @@
             font-size: 4vw;
             color: #878787;
             text-align: center;
+            line-height: 1em;
         }
         .expander {
             width: 1.5em;
+            height: 1em;
         }
         a {
             text-decoration: none;
@@ -75,10 +77,20 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script>
         $(document).ready(function() {
+            let isExpanded = false;
             $('.region').on("click", function() {
                 const expander = $('.expander');
-                expander.html(expander.text() === '⏶' ? '⏷' : '⏶');
+                expander.animate(
+                        { deg: isExpanded ? 0 : 180 },
+                        {
+                            duration: 100,
+                            step: function(now) {
+                                $(this).css({ transform: 'rotate(' + now + 'deg)' });
+                            }
+                        }
+                );
                 $(".region-selector").slideToggle(100);
+                isExpanded = !isExpanded;
             });
         });
     </script>
@@ -113,7 +125,7 @@
 <div class="last-update">{{lastUpdateTime}}</div>
 <div class="region">
     <div>{{regionName}}</div>
-    <div class="expander">&#x23f7</div>
+    <div class="expander">&triangledown;</div>
 </div>
 <ul class="region-selector">
     <li>
