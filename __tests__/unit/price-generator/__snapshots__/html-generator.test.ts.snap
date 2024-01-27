@@ -28,26 +28,52 @@ exports[`html-generator generateHtml should match snapshot 1`] = `
             color: #878787;
             text-align: center;
         }
-        .region {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            font-size: 4vw;
-            color: #878787;
-            text-align: center;
-            line-height: 1em;
+
+        .menu-toggle {
+            position: absolute;
+            padding: 0 2vw;
+            background: none;
+            border: none;
+            color: #AAAAAA;
+            font-size: 5vw;
+            cursor: pointer;
+            z-index: 200;
         }
-        .expander {
-            width: 1.5em;
-            height: 1em;
+        .menu-container {
+            position: absolute;
+            top: 0;
+            width: 50%;
+            background-color: #222222;
+            padding: 8vw 2vw;
+            box-sizing: border-box;
+            z-index: 100;
+            transition: left 0.3s ease;
+            left: -50%;
+            color: #F7F7F7;
+            font-size: 3vw;
         }
-        a {
+        .menu-container.open {
+            left: 0;
+        }
+        .menu-section {
+            font-weight: bold;
+            border-bottom: #878787 0.5vw solid;
+            padding: 1vw 1vw;
+        }
+        .menu {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .menu li {
+            padding: 1vw 2vw;
+        }
+        .menu li.selected {
+            background: #444444;
+        }
+        .menu a {
+            color: #F7F7F7;
             text-decoration: none;
-        }
-        .region-link {
-            font-size: 4vw;
-            color: #878787;
-            text-align: center;
         }
 
         @media screen and (min-width: 1200px) {
@@ -58,47 +84,58 @@ exports[`html-generator generateHtml should match snapshot 1`] = `
             .last-update {
                 font-size: 72px;
             }
-            .region {
-                font-size: 48px;
+            .menu-toggle {
+                font-size: 60px;
+                padding: 0 24px;
             }
-            .region-link {
-                font-size: 48px;
+            .menu-container {
+                font-size: 36px;
+                width: 600px;
+                left: -600px;
+                padding: 96px 24px;
             }
-        }
-
-        .region-selector {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            display: none;
-        }
-
-        .region-selector li {
-            position: relative;
+            .menu-section {
+                padding: 12px 12px;
+                border-bottom: #878787 6px solid;
+            }
+            .menu li {
+                padding: 12px 24px;
+            }
         }
     </style>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script>
-        $(document).ready(function() {
-            let isExpanded = false;
-            $('.region').on("click", function() {
-                const expander = $('.expander');
-                expander.animate(
-                        { deg: isExpanded ? 0 : 180 },
-                        {
-                            duration: 100,
-                            step: function(now) {
-                                $(this).css({ transform: 'rotate(' + now + 'deg)' });
-                            }
-                        }
-                );
-                $(".region-selector").slideToggle(100);
-                isExpanded = !isExpanded;
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const menu = document.querySelector('.menu-container');
+
+            menuToggle.addEventListener('click', function() {
+                menu.classList.toggle('open');
             });
         });
     </script>
 </head>
 <body>
+<button class="menu-toggle">&#9776;</button>
+<div class="menu-container">
+    <div class="menu-section">Region</div>
+    <ul class="menu">
+        <li class="selected">West Midlands</li>
+            <li><a href="./eastern_england.html">Eastern England</a></li>
+            <li><a href="./east_midlands.html">East Midlands</a></li>
+            <li><a href="./london.html">London</a></li>
+            <li><a href="./merseyside_and_northern_wales.html">Merseyside and Northern Wales</a></li>
+            <li><a href="./north_eastern_england.html">North Eastern England</a></li>
+            <li><a href="./north_western_england.html">North Western England</a></li>
+            <li><a href="./southern_england.html">Southern England</a></li>
+            <li><a href="./south_eastern_england.html">South Eastern England</a></li>
+            <li><a href="./southern_wales.html">Southern Wales</a></li>
+            <li><a href="./south_western_england.html">South Western England</a></li>
+            <li><a href="./yorkshire.html">Yorkshire</a></li>
+            <li><a href="./southern_scotland.html">Southern Scotland</a></li>
+            <li><a href="./northern_scotland.html">Northern Scotland</a></li>
+    </ul>
+</div>
+
 <table>
     <thead>
     <tr>
@@ -137,27 +174,6 @@ exports[`html-generator generateHtml should match snapshot 1`] = `
     </tbody>
 </table>
 <div class="last-update">20/11, 12:34</div>
-<div class="region">
-    <div>West Midlands</div>
-    <div class="expander">&triangledown;</div>
-</div>
-<ul class="region-selector">
-    <li>
-        <a href="./eastern_england.html"><div class="region-link">Eastern England</div></a>
-        <a href="./east_midlands.html"><div class="region-link">East Midlands</div></a>
-        <a href="./london.html"><div class="region-link">London</div></a>
-        <a href="./merseyside_and_northern_wales.html"><div class="region-link">Merseyside and Northern Wales</div></a>
-        <a href="./north_eastern_england.html"><div class="region-link">North Eastern England</div></a>
-        <a href="./north_western_england.html"><div class="region-link">North Western England</div></a>
-        <a href="./southern_england.html"><div class="region-link">Southern England</div></a>
-        <a href="./south_eastern_england.html"><div class="region-link">South Eastern England</div></a>
-        <a href="./southern_wales.html"><div class="region-link">Southern Wales</div></a>
-        <a href="./south_western_england.html"><div class="region-link">South Western England</div></a>
-        <a href="./yorkshire.html"><div class="region-link">Yorkshire</div></a>
-        <a href="./southern_scotland.html"><div class="region-link">Southern Scotland</div></a>
-        <a href="./northern_scotland.html"><div class="region-link">Northern Scotland</div></a>
-    </li>
-</ul>
 </body>
 </html>
 "

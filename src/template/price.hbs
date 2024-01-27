@@ -25,26 +25,52 @@
             color: #878787;
             text-align: center;
         }
-        .region {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            font-size: 4vw;
-            color: #878787;
-            text-align: center;
-            line-height: 1em;
+
+        .menu-toggle {
+            position: absolute;
+            padding: 0 2vw;
+            background: none;
+            border: none;
+            color: #AAAAAA;
+            font-size: 5vw;
+            cursor: pointer;
+            z-index: 200;
         }
-        .expander {
-            width: 1.5em;
-            height: 1em;
+        .menu-container {
+            position: absolute;
+            top: 0;
+            width: 50%;
+            background-color: #222222;
+            padding: 8vw 2vw;
+            box-sizing: border-box;
+            z-index: 100;
+            transition: left 0.3s ease;
+            left: -50%;
+            color: #F7F7F7;
+            font-size: 3vw;
         }
-        a {
+        .menu-container.open {
+            left: 0;
+        }
+        .menu-section {
+            font-weight: bold;
+            border-bottom: #878787 0.5vw solid;
+            padding: 1vw 1vw;
+        }
+        .menu {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .menu li {
+            padding: 1vw 2vw;
+        }
+        .menu li.selected {
+            background: #444444;
+        }
+        .menu a {
+            color: #F7F7F7;
             text-decoration: none;
-        }
-        .region-link {
-            font-size: 4vw;
-            color: #878787;
-            text-align: center;
         }
 
         @media screen and (min-width: 1200px) {
@@ -55,47 +81,48 @@
             .last-update {
                 font-size: 72px;
             }
-            .region {
-                font-size: 48px;
+            .menu-toggle {
+                font-size: 60px;
+                padding: 0 24px;
             }
-            .region-link {
-                font-size: 48px;
+            .menu-container {
+                font-size: 36px;
+                width: 600px;
+                left: -600px;
+                padding: 96px 24px;
             }
-        }
-
-        .region-selector {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            display: none;
-        }
-
-        .region-selector li {
-            position: relative;
+            .menu-section {
+                padding: 12px 12px;
+                border-bottom: #878787 6px solid;
+            }
+            .menu li {
+                padding: 12px 24px;
+            }
         }
     </style>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script>
-        $(document).ready(function() {
-            let isExpanded = false;
-            $('.region').on("click", function() {
-                const expander = $('.expander');
-                expander.animate(
-                        { deg: isExpanded ? 0 : 180 },
-                        {
-                            duration: 100,
-                            step: function(now) {
-                                $(this).css({ transform: 'rotate(' + now + 'deg)' });
-                            }
-                        }
-                );
-                $(".region-selector").slideToggle(100);
-                isExpanded = !isExpanded;
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const menu = document.querySelector('.menu-container');
+
+            menuToggle.addEventListener('click', function() {
+                menu.classList.toggle('open');
             });
         });
     </script>
 </head>
 <body>
+<button class="menu-toggle">&#9776;</button>
+<div class="menu-container">
+    <div class="menu-section">Region</div>
+    <ul class="menu">
+        <li class="selected">{{regionName}}</li>
+        {{#each otherRegions}}
+            <li><a href="{{this.link}}">{{this.regionName}}</a></li>
+        {{/each}}
+    </ul>
+</div>
+
 <table>
     <thead>
     <tr>
@@ -123,16 +150,5 @@
     </tbody>
 </table>
 <div class="last-update">{{lastUpdateTime}}</div>
-<div class="region">
-    <div>{{regionName}}</div>
-    <div class="expander">&triangledown;</div>
-</div>
-<ul class="region-selector">
-    <li>
-        {{#each otherRegions}}
-        <a href="{{this.link}}"><div class="region-link">{{this.regionName}}</div></a>
-        {{/each}}
-    </li>
-</ul>
 </body>
 </html>

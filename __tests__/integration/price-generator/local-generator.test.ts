@@ -24,7 +24,7 @@ const generate = async (region: Region) => {
 
     const htmlContent = generateHtml(region, prices, generationTimeStamp);
 
-    fs.writeFileSync("./" + region.pageNames[0], htmlContent);
+    fs.writeFileSync("./test-output/" + region.pageNames[0], htmlContent);
 }
 
 /**
@@ -33,6 +33,8 @@ const generate = async (region: Region) => {
 describe.skip("local-generator", () => {
     test("generate", async () => {
         await generate(Region.London);
+        await generate(Region.EasternEngland);
+        await generate(Region.EastMidlands);
     });
 });
 
