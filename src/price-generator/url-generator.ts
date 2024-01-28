@@ -1,4 +1,4 @@
-import { Region } from "./types";
+import { Product, Region } from "./types";
 
 type EnergyInfo = {
     tariffPrefix: string,
@@ -7,7 +7,6 @@ type EnergyInfo = {
 
 const octopusApi = {
     baseProductUrl: "https://api.octopus.energy/v1/products/",
-    productCode: "SILVER-FLEX-22-11-25",
     standardUnitRates: "standard-unit-rates",
     electricityInfo: {
         tariffPrefix: "E-1R-",
@@ -19,17 +18,17 @@ const octopusApi = {
     }
 }
 
-const energyUrl = (info: EnergyInfo, region: Region) => {
-    return `${octopusApi.baseProductUrl}${octopusApi.productCode}` +
+const energyUrl = (info: EnergyInfo, region: Region, product: Product) => {
+    return `${octopusApi.baseProductUrl}${product.code}` +
     `/${info.tariffPath}` +
-    `/${info.tariffPrefix}${octopusApi.productCode}-${region.code}` +
+    `/${info.tariffPrefix}${product.code}-${region.code}` +
     `/${octopusApi.standardUnitRates}`;
 }
 
-export const electricityUrl = (region: Region) => {
-    return energyUrl(octopusApi.electricityInfo, region);
+export const electricityUrl = (region: Region, product: Product) => {
+    return energyUrl(octopusApi.electricityInfo, region, product);
 }
 
-export const gasUrl = (region: Region) => {
-    return energyUrl(octopusApi.gasInfo, region);
+export const gasUrl = (region: Region, product: Product) => {
+    return energyUrl(octopusApi.gasInfo, region, product);
 }

@@ -10,6 +10,16 @@ export type OctopusResult = {
     valid_to: string,
 }
 
+export class Product {
+    static November2022v1 = new Product("November 2022 v1", "SILVER-FLEX-22-11-25");
+    static December2023v1 = new Product("December 2023 v1", "SILVER-23-12-06");
+    static ALL = [
+        Product.November2022v1,
+        Product.December2023v1,
+    ];
+    constructor(readonly name: string, readonly code: string) {}
+}
+
 export class Region {
     static EasternEngland = new Region("Eastern England", "A", ["eastern_england.html"]);
     static EastMidlands = new Region("East Midlands", "B", ["east_midlands.html"]);

@@ -44,7 +44,7 @@ exports[`html-generator generateHtml should match snapshot 1`] = `
             top: 0;
             width: 50%;
             background-color: #222222;
-            padding: 8vw 2vw;
+            padding: 8vw 2vw 1vw;
             box-sizing: border-box;
             z-index: 100;
             transition: left 0.3s ease;
@@ -92,7 +92,7 @@ exports[`html-generator generateHtml should match snapshot 1`] = `
                 font-size: 36px;
                 width: 600px;
                 left: -600px;
-                padding: 96px 24px;
+                padding: 96px 24px 12px;
             }
             .menu-section {
                 padding: 12px 12px;
@@ -117,22 +117,27 @@ exports[`html-generator generateHtml should match snapshot 1`] = `
 <body>
 <button class="menu-toggle">&#9776;</button>
 <div class="menu-container">
+    <div class="menu-section">Tracker Tariff</div>
+    <ul class="menu">
+        <li class="selected">November 2022 v1</li>
+            <li><a href="../SILVER-23-12-06/west_midlands.html">December 2023 v1</a></li>
+    </ul>
     <div class="menu-section">Region</div>
     <ul class="menu">
         <li class="selected">West Midlands</li>
-            <li><a href="./eastern_england.html">Eastern England</a></li>
-            <li><a href="./east_midlands.html">East Midlands</a></li>
-            <li><a href="./london.html">London</a></li>
-            <li><a href="./merseyside_and_northern_wales.html">Merseyside and Northern Wales</a></li>
-            <li><a href="./north_eastern_england.html">North Eastern England</a></li>
-            <li><a href="./north_western_england.html">North Western England</a></li>
-            <li><a href="./southern_england.html">Southern England</a></li>
-            <li><a href="./south_eastern_england.html">South Eastern England</a></li>
-            <li><a href="./southern_wales.html">Southern Wales</a></li>
-            <li><a href="./south_western_england.html">South Western England</a></li>
-            <li><a href="./yorkshire.html">Yorkshire</a></li>
-            <li><a href="./southern_scotland.html">Southern Scotland</a></li>
-            <li><a href="./northern_scotland.html">Northern Scotland</a></li>
+            <li><a href="../SILVER-FLEX-22-11-25/eastern_england.html">Eastern England</a></li>
+            <li><a href="../SILVER-FLEX-22-11-25/east_midlands.html">East Midlands</a></li>
+            <li><a href="../SILVER-FLEX-22-11-25/london.html">London</a></li>
+            <li><a href="../SILVER-FLEX-22-11-25/merseyside_and_northern_wales.html">Merseyside and Northern Wales</a></li>
+            <li><a href="../SILVER-FLEX-22-11-25/north_eastern_england.html">North Eastern England</a></li>
+            <li><a href="../SILVER-FLEX-22-11-25/north_western_england.html">North Western England</a></li>
+            <li><a href="../SILVER-FLEX-22-11-25/southern_england.html">Southern England</a></li>
+            <li><a href="../SILVER-FLEX-22-11-25/south_eastern_england.html">South Eastern England</a></li>
+            <li><a href="../SILVER-FLEX-22-11-25/southern_wales.html">Southern Wales</a></li>
+            <li><a href="../SILVER-FLEX-22-11-25/south_western_england.html">South Western England</a></li>
+            <li><a href="../SILVER-FLEX-22-11-25/yorkshire.html">Yorkshire</a></li>
+            <li><a href="../SILVER-FLEX-22-11-25/southern_scotland.html">Southern Scotland</a></li>
+            <li><a href="../SILVER-FLEX-22-11-25/northern_scotland.html">Northern Scotland</a></li>
     </ul>
 </div>
 

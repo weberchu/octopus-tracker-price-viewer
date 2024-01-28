@@ -41,7 +41,7 @@
             top: 0;
             width: 50%;
             background-color: #222222;
-            padding: 8vw 2vw;
+            padding: 8vw 2vw 1vw;
             box-sizing: border-box;
             z-index: 100;
             transition: left 0.3s ease;
@@ -89,7 +89,7 @@
                 font-size: 36px;
                 width: 600px;
                 left: -600px;
-                padding: 96px 24px;
+                padding: 96px 24px 12px;
             }
             .menu-section {
                 padding: 12px 12px;
@@ -114,11 +114,18 @@
 <body>
 <button class="menu-toggle">&#9776;</button>
 <div class="menu-container">
+    <div class="menu-section">Tracker Tariff</div>
+    <ul class="menu">
+        <li class="selected">{{productName}}</li>
+        {{#each otherProducts}}
+            <li><a href="{{this.link}}">{{this.name}}</a></li>
+        {{/each}}
+    </ul>
     <div class="menu-section">Region</div>
     <ul class="menu">
         <li class="selected">{{regionName}}</li>
         {{#each otherRegions}}
-            <li><a href="{{this.link}}">{{this.regionName}}</a></li>
+            <li><a href="{{this.link}}">{{this.name}}</a></li>
         {{/each}}
     </ul>
 </div>

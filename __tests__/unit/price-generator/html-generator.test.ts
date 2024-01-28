@@ -1,5 +1,5 @@
 import { generateHtml } from "../../../src/price-generator/html-generator";
-import { Region } from "../../../src/price-generator/types";
+import { Product, Region } from "../../../src/price-generator/types";
 
 describe("html-generator", () => {
     describe("generateHtml", () => {
@@ -20,7 +20,7 @@ describe("html-generator", () => {
                     electricityPrice: "5.0",
                 },
             ];
-            const html = generateHtml(Region.WestMidlands, prices, new Date('2023-11-20T12:34:56Z'));
+            const html = generateHtml(Region.WestMidlands, Product.November2022v1, prices, new Date('2023-11-20T12:34:56Z'));
 
             expect(html).toMatchSnapshot();
         });

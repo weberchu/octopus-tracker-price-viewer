@@ -1,10 +1,16 @@
-import { Region } from "../../../src/price-generator/types";
+import { Product, Region } from "../../../src/price-generator/types";
 
 const electricityJson = jest.fn();
 const gasJson = jest.fn();
-const electricityUrl = "https://api.octopus.energy/v1/products/SILVER-FLEX-22-11-25/electricity-tariffs/E-1R-SILVER-FLEX-22-11-25-C/standard-unit-rates";
-const gasUrl = "https://api.octopus.energy/v1/products/SILVER-FLEX-22-11-25/gas-tariffs/G-1R-SILVER-FLEX-22-11-25-C/standard-unit-rates";
+const electricityUrl = "https://api.octopus.energy/some-electricity-url";
+const gasUrl = "https://api.octopus.energy/some-gas-url";
+const mockElectricityUrl = jest.fn();
+const mockGasUrl = jest.fn();
 
+jest.mock("../../../src/price-generator/url-generator", () => ({
+    electricityUrl: mockElectricityUrl.mockReturnValue(electricityUrl),
+    gasUrl: mockGasUrl.mockReturnValue(gasUrl),
+}));
 jest.mock("node-fetch", () => {
     return (url: string) => {
         return Promise.resolve({
@@ -83,8 +89,10 @@ describe('price-generator', function () {
                 ]
             })
 
-            const prices = await getPrices(Region.London);
+            const prices = await getPrices(Region.London, Product.November2022v1);
 
+            expect(mockElectricityUrl).toHaveBeenCalledWith(Region.London, Product.November2022v1);
+            expect(mockGasUrl).toHaveBeenCalledWith(Region.London, Product.November2022v1);
             expect(prices).toEqual([
                 {
                     date: "18/07",
@@ -156,8 +164,10 @@ describe('price-generator', function () {
                 ]
             })
 
-            const prices = await getPrices(Region.London);
+            const prices = await getPrices(Region.SouthEasternEngland, Product.December2023v1);
 
+            expect(mockElectricityUrl).toHaveBeenCalledWith(Region.SouthEasternEngland, Product.December2023v1);
+            expect(mockGasUrl).toHaveBeenCalledWith(Region.SouthEasternEngland, Product.December2023v1);
             expect(prices).toEqual([
                 {
                     date: "18/07",

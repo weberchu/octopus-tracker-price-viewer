@@ -1,12 +1,12 @@
-import { Price, Region } from "./types";
+import { Price, Product, Region } from "./types";
 import { electricityUrl, gasUrl } from "./url-generator";
 import { getSingleFuel } from "./single-fuel-fetcher";
 import { findPrice } from "./price-finder";
-import { toDateString, toLastUpdateTime } from "./date-time-formatter";
+import { toDateString } from "./date-time-formatter";
 
-export const getPrices = async (region: Region): Promise<Price[]> => {
-    const electricityPrices = await getSingleFuel(electricityUrl(region));
-    const gasPrices = await getSingleFuel(gasUrl(region));
+export const getPrices = async (region: Region, product: Product): Promise<Price[]> => {
+    const electricityPrices = await getSingleFuel(electricityUrl(region, product));
+    const gasPrices = await getSingleFuel(gasUrl(region, product));
 
     const now = new Date();
     const todayEpoch = now.getTime();
