@@ -43,6 +43,7 @@ exports[`html-generator generateHtml should match snapshot 1`] = `
             position: absolute;
             top: 0;
             width: 50%;
+            min-height: 100%;
             background-color: #222222;
             padding: 8vw 2vw 1vw;
             box-sizing: border-box;
