@@ -11,7 +11,7 @@ jest.mock("../../../src/price-generator/html-generator", () => ({
 }));
 jest.mock("../../../src/price-generator/uploader", () => ({
     uploader: {
-        uploadToS3: mockUploadToS3
+        uploadToS3: mockUploadToS3.mockImplementation(() => Promise.resolve())
     }
 }));
 
@@ -52,7 +52,8 @@ const mockHtmlContent = (region: Region, product: Product) => {
 
 describe("handler", () => {
     test("should upload generated price HTML to S3", async () => {
-        mockGetPrices.mockImplementation(mockPrices);
+        mockGetPrices.mockImplementation((region: Region, product: Product) =>
+            Promise.resolve(mockPrices(region, product)));
         mockGenerateHtml.mockImplementation(mockHtmlContent);
 
         await handler({} as APIGatewayProxyEvent);

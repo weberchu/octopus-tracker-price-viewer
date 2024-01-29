@@ -139,6 +139,12 @@ exports[`html-generator generateHtml should match snapshot 1`] = `
             <li><a href="../SILVER-FLEX-22-11-25/southern_scotland.html">Southern Scotland</a></li>
             <li><a href="../SILVER-FLEX-22-11-25/northern_scotland.html">Northern Scotland</a></li>
     </ul>
+    <div class="menu-section">Useful links</div>
+    <ul class="menu">
+        <li><a href="https://www.nationalgrid.co.uk/our-network/distribution-area-search">Find my region</a></li>
+        <li><a href="https://play.google.com/store/apps/details?id=com.binarysmith.webclipwidget.ad&hl=en&gl=US">Create a widget in Android</a></li>
+        <li><a href="https://apps.apple.com/us/app/glimpse-2/id1524217845">Create a widget in iPhone</a></li>
+    </ul>
 </div>
 
 <table>

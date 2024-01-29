@@ -30,7 +30,7 @@ const generate = async (region: Region, product: Product) => {
 /**
  * Not a test. Run this to generate an HTML for manual verification.
  */
-describe.skip("local-generator", () => {
+describe("local-generator", () => {
     test("generate", async () => {
         await generate(Region.London, Product.November2022v1);
         await generate(Region.London, Product.December2023v1);
