@@ -2,6 +2,7 @@ import { Product, Region } from "../../../src/price-generator/types";
 import { generateHtml } from "../../../src/price-generator/html-generator";
 import fs from "fs";
 
+const output_base_folder = "./test-output/";
 const generate = async (region: Region, product: Product) => {
     const generationTimeStamp = new Date();
 
@@ -24,18 +25,21 @@ const generate = async (region: Region, product: Product) => {
 
     const htmlContent = generateHtml(region, product, prices, generationTimeStamp);
 
-    fs.writeFileSync("./test-output/" + product.code + "/" + region.pageNames[0], htmlContent);
+    fs.mkdirSync(output_base_folder + product.code, {recursive: true});
+    fs.writeFileSync(output_base_folder + product.code + "/" + region.pageNames[0], htmlContent);
 }
 
 /**
  * Not a test. Run this to generate an HTML for manual verification.
  */
-describe.skip("local-generator", () => {
+describe("local-generator", () => {
     test("generate", async () => {
         await generate(Region.London, Product.November2022v1);
         await generate(Region.London, Product.December2023v1);
         await generate(Region.EasternEngland, Product.November2022v1);
         await generate(Region.EasternEngland, Product.December2023v1);
+        await generate(Region.MerseysideAndNorthernWales, Product.November2022v1);
+        await generate(Region.MerseysideAndNorthernWales, Product.December2023v1);
     });
 });
 

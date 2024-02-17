@@ -28,7 +28,11 @@ exports[`html-generator generateHtml should match snapshot 1`] = `
             color: #878787;
             text-align: center;
         }
-
+        .footer {
+            font-size: 4vw;
+            color: #878787;
+            text-align: center;
+        }
         .menu-toggle {
             position: absolute;
             padding: 0 2vw;
@@ -84,6 +88,9 @@ exports[`html-generator generateHtml should match snapshot 1`] = `
             }
             .last-update {
                 font-size: 72px;
+            }
+            .footer {
+                font-size: 48px;
             }
             .menu-toggle {
                 font-size: 60px;
@@ -186,6 +193,8 @@ exports[`html-generator generateHtml should match snapshot 1`] = `
     </tbody>
 </table>
 <div class="last-update">20/11, 12:34</div>
+<div class="footer">West Midlands</div>
+<div class="footer">November 2022 v1</div>
 </body>
 </html>
 "
