@@ -20,6 +20,8 @@ export class Product {
     constructor(readonly name: string, readonly code: string) {}
 }
 
+export const DEFAULT_PRODUCT = Product.December2023v1;
+
 export class Region {
     static EasternEngland = new Region("Eastern England", "A", ["eastern_england.html"]);
     static EastMidlands = new Region("East Midlands", "B", ["east_midlands.html"]);

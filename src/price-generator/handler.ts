@@ -2,7 +2,7 @@ import { APIGatewayProxyEvent } from "aws-lambda";
 import { generateHtml } from "./html-generator";
 import { uploader } from "./uploader";
 import { getPrices } from "./price-generator";
-import { Product, Region } from "./types";
+import { DEFAULT_PRODUCT, Product, Region } from "./types";
 
 export const handler = async (event: APIGatewayProxyEvent) => {
     console.info("handler started");
@@ -22,7 +22,7 @@ export const handler = async (event: APIGatewayProxyEvent) => {
 
                         for (const pageName of region.pageNames) {
                             const filenames = [];
-                            if (product == Product.November2022v1) {
+                            if (product == DEFAULT_PRODUCT) {
                                 filenames.push(pageName); // backwards compatibility with url without product code
                             }
                             filenames.push(product.code + "/" + pageName);

@@ -76,7 +76,9 @@ describe("handler", () => {
         expect(mockUploadToS3).toBeCalledTimes(totalPageCount * (Product.ALL.length + 1));
         for (const region of Region.ALL) {
             for (const pageName of region.pageNames) {
-                expect(mockUploadToS3).toBeCalledWith(mockHtmlContent(region, Product.November2022v1), pageName);
+                // Default Product without product code in url
+                expect(mockUploadToS3).toBeCalledWith(mockHtmlContent(region, Product.December2023v1), pageName);
+                // All products with product code in url
                 for (const product of Product.ALL) {
                     expect(mockUploadToS3).toBeCalledWith(mockHtmlContent(region, product), product.code + "/" + pageName);
                 }
