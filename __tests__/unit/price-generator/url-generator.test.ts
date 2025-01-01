@@ -10,6 +10,9 @@ describe("url-generator", () => {
             expect(electricityUrl(Region.SouthEasternEngland, Product.December2023v1)).toEqual(
                 "https://api.octopus.energy/v1/products/SILVER-23-12-06/electricity-tariffs/E-1R-SILVER-23-12-06-J/standard-unit-rates"
             );
+            expect(electricityUrl(Region.Yorkshire, Product.December2024v1)).toEqual(
+                "https://api.octopus.energy/v1/products/SILVER-24-12-31/electricity-tariffs/E-1R-SILVER-24-12-31-M/standard-unit-rates"
+            );
         });
     });
 
@@ -20,6 +23,9 @@ describe("url-generator", () => {
             );
             expect(gasUrl(Region.SouthEasternEngland, Product.December2023v1)).toEqual(
                 "https://api.octopus.energy/v1/products/SILVER-23-12-06/gas-tariffs/G-1R-SILVER-23-12-06-J/standard-unit-rates"
+            );
+            expect(gasUrl(Region.Yorkshire, Product.December2024v1)).toEqual(
+                "https://api.octopus.energy/v1/products/SILVER-24-12-31/gas-tariffs/G-1R-SILVER-24-12-31-M/standard-unit-rates"
             );
         });
     });

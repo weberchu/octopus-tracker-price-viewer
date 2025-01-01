@@ -36,9 +36,12 @@ describe.skip("local-generator", () => {
     test("generate", async () => {
         await generate(Region.London, Product.April2023v1);
         await generate(Region.London, Product.December2023v1);
+        await generate(Region.London, Product.December2024v1);
         await generate(Region.EasternEngland, Product.April2023v1);
         await generate(Region.EasternEngland, Product.December2023v1);
+        await generate(Region.EasternEngland, Product.December2024v1);
         await generate(Region.MerseysideAndNorthernWales, Product.April2023v1);
         await generate(Region.MerseysideAndNorthernWales, Product.December2023v1);
+        await generate(Region.MerseysideAndNorthernWales, Product.December2024v1);
     });
 });
