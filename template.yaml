@@ -46,7 +46,6 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: octopus-tracker
-      AccessControl: Private
       CorsConfiguration:
         CorsRules:
           - AllowedMethods:
@@ -91,8 +90,10 @@ Resources:
     Properties:
       Bucket: !Ref OctopusTrackerBucket
       PolicyDocument:
+        Version: '2012-10-17'
         Statement:
-          - Effect: Allow
+          - Sid: AllowCloudFrontAccess
+            Effect: Allow
             Principal:
               Service: 'cloudfront.amazonaws.com'
             Action: 's3:GetObject'
@@ -100,6 +101,16 @@ Resources:
             Condition:
               StringEquals:
                 AWS:SourceArn: !Sub "arn:aws:cloudfront::${AWS::AccountId}:distribution/${CloudFrontDistribution}"
+          - Sid: DenyPublicAccess
+            Effect: Deny
+            Principal: '*'
+            Action: 's3:*'
+            Resource:
+              - !Sub '${OctopusTrackerBucket.Arn}'
+              - !Sub '${OctopusTrackerBucket.Arn}/*'
+            Condition:
+              StringNotEquals:
+                'aws:PrincipalArn': !Sub 'arn:aws:iam::${AWS::AccountId}:root'
   CloudFrontOAC:
     Type: AWS::CloudFront::OriginAccessControl
     Properties:
