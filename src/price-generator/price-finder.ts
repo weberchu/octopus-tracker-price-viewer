@@ -7,4 +7,4 @@ export const findPrice = (date: Date, results: OctopusResult[]) => {
         const to = Date.parse(result.valid_to);
         return from <= dateEpoch && dateEpoch <= to;
     })?.value_inc_vat;
-}
+};

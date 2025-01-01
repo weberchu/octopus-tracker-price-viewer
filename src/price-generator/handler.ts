@@ -1,20 +1,19 @@
-import { APIGatewayProxyEvent } from "aws-lambda";
 import { generateHtml } from "./html-generator";
 import { uploader } from "./uploader";
 import { getPrices } from "./price-generator";
 import { DEFAULT_PRODUCT, Product, Region } from "./types";
 
-export const handler = async (event: APIGatewayProxyEvent) => {
+export const handler = async () => {
     console.info("handler started");
     const generationTimeStamp = new Date();
 
     for (const product of Product.ALL) {
         // handle all regions within a product in parallel
         await Promise.all(
-            Region.ALL.map(region =>
+            Region.ALL.map((region) =>
                 Promise.resolve(region)
-                    .then(region => getPrices(region, product))
-                    .then(async prices => {
+                    .then((region) => getPrices(region, product))
+                    .then(async (prices) => {
                         console.info("[" + product.code + "-" + region.name + "] prices generated");
 
                         const htmlContent = generateHtml(region, product, prices, generationTimeStamp);
@@ -31,6 +30,8 @@ export const handler = async (event: APIGatewayProxyEvent) => {
                                 console.info("[" + product.code + "-" + region.name + "] uploaded to " + filename);
                             }
                         }
-                    })))
+                    })
+            )
+        );
     }
-}
+};

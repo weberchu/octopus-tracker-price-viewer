@@ -1,6 +1,6 @@
 import AWS from "aws-sdk";
 
-const bucketName = 'octopus-tracker';
+const bucketName = "octopus-tracker";
 
 class Uploader {
     private s3 = new AWS.S3();
@@ -11,17 +11,17 @@ class Uploader {
             Key: fileName,
             Body: fileContent,
             CacheControl: "max-age=10",
-            ContentType: "text/html"
+            ContentType: "text/html",
         };
 
         try {
             const response = await this.s3.upload(params).promise();
-            console.info('File uploaded successfully:', response.Location);
+            console.info("File uploaded successfully:", response.Location);
         } catch (error) {
-            console.error('Error uploading file:', error);
+            console.error("Error uploading file:", error);
             throw error;
         }
-    }
+    };
 }
 
 export const uploader = new Uploader();

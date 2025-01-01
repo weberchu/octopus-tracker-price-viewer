@@ -4,18 +4,17 @@ const mockGetPrices = jest.fn();
 const mockGenerateHtml = jest.fn();
 const mockUploadToS3 = jest.fn();
 jest.mock("../../../src/price-generator/price-generator", () => ({
-    getPrices: mockGetPrices
+    getPrices: mockGetPrices,
 }));
 jest.mock("../../../src/price-generator/html-generator", () => ({
-    generateHtml: mockGenerateHtml
+    generateHtml: mockGenerateHtml,
 }));
 jest.mock("../../../src/price-generator/uploader", () => ({
     uploader: {
-        uploadToS3: mockUploadToS3.mockImplementation(() => Promise.resolve())
-    }
+        uploadToS3: mockUploadToS3.mockImplementation(() => Promise.resolve()),
+    },
 }));
 
-import { APIGatewayProxyEvent } from "aws-lambda";
 import { handler } from "../../../src/price-generator/handler";
 
 const somePrices = [
@@ -31,7 +30,7 @@ const somePrices = [
     },
 ];
 
-const currentTime = new Date('2023-07-20T12:34:56Z');
+const currentTime = new Date("2023-07-20T12:34:56Z");
 
 jest.useFakeTimers().setSystemTime(currentTime);
 
@@ -48,15 +47,16 @@ const mockPrices = (region: Region, product: Product) => {
 };
 const mockHtmlContent = (region: Region, product: Product) => {
     return "some html content for " + region.name + " " + product.name;
-}
+};
 
 describe("handler", () => {
     test("should upload generated price HTML to S3", async () => {
         mockGetPrices.mockImplementation((region: Region, product: Product) =>
-            Promise.resolve(mockPrices(region, product)));
+            Promise.resolve(mockPrices(region, product))
+        );
         mockGenerateHtml.mockImplementation(mockHtmlContent);
 
-        await handler({} as APIGatewayProxyEvent);
+        await handler();
 
         expect(mockGetPrices).toBeCalledTimes(Region.ALL.length * Product.ALL.length);
         for (const region of Region.ALL) {
@@ -72,7 +72,7 @@ describe("handler", () => {
             }
         }
 
-        const totalPageCount = Region.ALL.map(r => r.pageNames.length).reduce((p, c) => p + c);
+        const totalPageCount = Region.ALL.map((r) => r.pageNames.length).reduce((p, c) => p + c);
         expect(mockUploadToS3).toBeCalledTimes(totalPageCount * (Product.ALL.length + 1));
         for (const region of Region.ALL) {
             for (const pageName of region.pageNames) {
@@ -80,7 +80,10 @@ describe("handler", () => {
                 expect(mockUploadToS3).toBeCalledWith(mockHtmlContent(region, Product.December2023v1), pageName);
                 // All products with product code in url
                 for (const product of Product.ALL) {
-                    expect(mockUploadToS3).toBeCalledWith(mockHtmlContent(region, product), product.code + "/" + pageName);
+                    expect(mockUploadToS3).toBeCalledWith(
+                        mockHtmlContent(region, product),
+                        product.code + "/" + pageName
+                    );
                 }
             }
         }

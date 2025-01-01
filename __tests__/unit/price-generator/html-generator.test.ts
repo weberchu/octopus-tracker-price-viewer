@@ -20,7 +20,12 @@ describe("html-generator", () => {
                     electricityPrice: "5.0",
                 },
             ];
-            const html = generateHtml(Region.WestMidlands, Product.December2023v1, prices, new Date('2023-11-20T12:34:56Z'));
+            const html = generateHtml(
+                Region.WestMidlands,
+                Product.December2023v1,
+                prices,
+                new Date("2023-11-20T12:34:56Z")
+            );
 
             expect(html).toMatchSnapshot();
         });

@@ -1,13 +1,13 @@
 const mockUploadPromise = jest.fn();
 const mockUpload = jest.fn().mockReturnValue({
-    promise: mockUploadPromise
+    promise: mockUploadPromise,
 });
 jest.mock("aws-sdk", () => ({
     S3: jest.fn().mockImplementation(() => {
         return {
-            upload: mockUpload
-        }
-    })
+            upload: mockUpload,
+        };
+    }),
 }));
 
 import { uploader } from "../../../src/price-generator/uploader";
@@ -16,7 +16,7 @@ describe("Uploader", () => {
     describe("uploadToS3", () => {
         test("should upload to S3", async () => {
             mockUploadPromise.mockResolvedValue({
-                Location: "some-s3-location"
+                Location: "some-s3-location",
             });
 
             await uploader.uploadToS3("some-content", "some-place.html");
@@ -27,7 +27,7 @@ describe("Uploader", () => {
                 Key: "some-place.html",
                 Body: "some-content",
                 CacheControl: "max-age=10",
-                ContentType: "text/html"
+                ContentType: "text/html",
             });
         });
 

@@ -5,29 +5,32 @@
     "repository": "https://github.com/weberchu/octopus-tracker-price-viewer",
     "license": "MIT",
     "private": true,
+    "type": "module",
     "devDependencies": {
-        "@types/aws-lambda": "^8.10.92",
-        "@types/jest": "^29.2.0",
-        "@types/node": "^18.11.4",
-        "@typescript-eslint/eslint-plugin": "^5.10.2",
-        "@typescript-eslint/parser": "^5.10.2",
-        "eslint": "^8.8.0",
-        "eslint-config-prettier": "^8.3.0",
-        "eslint-plugin-prettier": "^4.0.0",
+        "@types/aws-lambda": "^8.10.146",
+        "@types/jest": "^29.5.14",
+        "@types/node": "^22.10.3",
+        "@typescript-eslint/eslint-plugin": "^8.19.0",
+        "@typescript-eslint/parser": "^8.19.0",
+        "eslint": "^9.17.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-prettier": "^5.2.1",
         "jest": "^29.7.0",
-        "prettier": "^2.5.1",
-        "ts-jest": "^29.0.5",
-        "ts-node": "^10.9.1",
-        "typescript": "^4.8.4"
+        "prettier": "^3.4.2",
+        "ts-jest": "^29.2.5",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.7.2",
+        "typescript-eslint": "^8.19.0"
     },
     "scripts": {
         "unit": "jest",
-        "lint": "eslint '*.ts' --quiet --fix",
+        "lint": "eslint --fix",
+
         "compile": "tsc",
         "test": "npm run compile && npm run unit"
     },
     "dependencies": {
-        "aws-sdk": "^2.1468.0",
+        "aws-sdk": "^2.1692.0",
         "esbuild": "^0.14.14",
         "handlebars": "^4.7.8",
         "node-fetch": "^3.3.2"

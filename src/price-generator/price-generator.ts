@@ -23,7 +23,7 @@ export const getPrices = async (region: Region, product: Product): Promise<Price
             date: toDateString(now),
             electricityPrice: findPrice(now, electricityPrices)?.toFixed(2),
             gasPrice: findPrice(now, gasPrices)?.toFixed(2),
-        }
+        },
     ];
 
     const tomorrowElectricityPrice = findPrice(tomorrow, electricityPrices)?.toFixed(2);
@@ -37,5 +37,4 @@ export const getPrices = async (region: Region, product: Product): Promise<Price
     }
 
     return prices;
-}
-
+};

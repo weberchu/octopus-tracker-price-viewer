@@ -3,7 +3,7 @@ const mockFetchJson = jest.fn();
 
 jest.mock("node-fetch", () => {
     return mockFetch.mockResolvedValue({
-        json: mockFetchJson
+        json: mockFetchJson,
     });
 });
 
@@ -26,8 +26,8 @@ describe("single-fuel-fetcher", () => {
                     value_inc_vat: 4,
                     valid_from: "from-date-2",
                     valid_to: "to-date-2",
-                }
-            ]
+                },
+            ],
         };
 
         mockFetchJson.mockResolvedValue(responseObject);

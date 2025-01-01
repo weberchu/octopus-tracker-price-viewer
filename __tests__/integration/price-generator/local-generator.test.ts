@@ -25,9 +25,9 @@ const generate = async (region: Region, product: Product) => {
 
     const htmlContent = generateHtml(region, product, prices, generationTimeStamp);
 
-    fs.mkdirSync(output_base_folder + product.code, {recursive: true});
+    fs.mkdirSync(output_base_folder + product.code, { recursive: true });
     fs.writeFileSync(output_base_folder + product.code + "/" + region.pageNames[0], htmlContent);
-}
+};
 
 /**
  * Not a test. Run this to generate an HTML for manual verification.
@@ -42,4 +42,3 @@ describe.skip("local-generator", () => {
         await generate(Region.MerseysideAndNorthernWales, Product.December2023v1);
     });
 });
-
