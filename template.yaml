@@ -20,7 +20,7 @@ Resources:
     Properties:
       Description: A Lambda function that generate Octopus Tracker prices as a HTML page in S3.
       FunctionName: price-generator
-      Runtime: nodejs18.x
+      Runtime: nodejs22.x
       Architectures:
         - x86_64
       Handler: handler.handler
@@ -46,6 +46,7 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: octopus-tracker
+      AccessControl: Private
       CorsConfiguration:
         CorsRules:
           - AllowedMethods:
@@ -101,16 +102,14 @@ Resources:
             Condition:
               StringEquals:
                 AWS:SourceArn: !Sub "arn:aws:cloudfront::${AWS::AccountId}:distribution/${CloudFrontDistribution}"
-          - Sid: DenyPublicAccess
-            Effect: Deny
-            Principal: '*'
-            Action: 's3:*'
-            Resource:
-              - !Sub '${OctopusTrackerBucket.Arn}'
-              - !Sub '${OctopusTrackerBucket.Arn}/*'
-            Condition:
-              StringNotEquals:
-                'aws:PrincipalArn': !Sub 'arn:aws:iam::${AWS::AccountId}:root'
+          - Sid: AllowPriceGeneratorAccess
+            Effect: Allow
+            Principal:
+              AWS: !GetAtt PriceGeneratorRole.Arn
+            Action:
+              - s3:PutObject
+              - s3:GetObject
+            Resource: !Sub '${OctopusTrackerBucket.Arn}/*'
   CloudFrontOAC:
     Type: AWS::CloudFront::OriginAccessControl
     Properties:
@@ -140,8 +139,7 @@ Resources:
                 Action:
                   - s3:GetObject
                   - s3:PutObject
-                Resource:
-                  - arn:aws:s3:::octopus-tracker/*
+                Resource: !Sub '${OctopusTrackerBucket.Arn}/*'
 
 Outputs:
   CloudFrontDistributionDomainName:
