@@ -21,7 +21,7 @@ export class Product {
     ) {}
 }
 
-export const DEFAULT_PRODUCT = Product.December2023v1;
+export const DEFAULT_PRODUCT = Product.December2024v1;
 
 export class Region {
     static EasternEngland = new Region("Eastern England", "A", ["eastern_england.html"]);

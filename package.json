@@ -25,7 +25,6 @@
     "scripts": {
         "unit": "jest",
         "lint": "eslint --fix",
-
         "compile": "tsc",
         "test": "npm run compile && npm run unit"
     },

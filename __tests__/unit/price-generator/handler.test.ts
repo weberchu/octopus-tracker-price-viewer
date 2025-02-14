@@ -77,7 +77,7 @@ describe("handler", () => {
         for (const region of Region.ALL) {
             for (const pageName of region.pageNames) {
                 // Default Product without product code in url
-                expect(mockUploadToS3).toBeCalledWith(mockHtmlContent(region, Product.December2023v1), pageName);
+                expect(mockUploadToS3).toBeCalledWith(mockHtmlContent(region, Product.December2024v1), pageName);
                 // All products with product code in url
                 for (const product of Product.ALL) {
                     expect(mockUploadToS3).toBeCalledWith(
