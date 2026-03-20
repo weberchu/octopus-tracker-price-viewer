@@ -87,10 +87,10 @@ describe("price-generator", function () {
                 ],
             });
 
-            const prices = await getPrices(Region.London, Product.December2023v1);
+            const prices = await getPrices(Region.London, Product.September2025v1);
 
-            expect(mockElectricityUrl).toHaveBeenCalledWith(Region.London, Product.December2023v1);
-            expect(mockGasUrl).toHaveBeenCalledWith(Region.London, Product.December2023v1);
+            expect(mockElectricityUrl).toHaveBeenCalledWith(Region.London, Product.September2025v1);
+            expect(mockGasUrl).toHaveBeenCalledWith(Region.London, Product.September2025v1);
             expect(prices).toEqual([
                 {
                     date: "18/07",
@@ -162,10 +162,10 @@ describe("price-generator", function () {
                 ],
             });
 
-            const prices = await getPrices(Region.SouthEasternEngland, Product.December2023v1);
+            const prices = await getPrices(Region.SouthEasternEngland, Product.September2025v1);
 
-            expect(mockElectricityUrl).toHaveBeenCalledWith(Region.SouthEasternEngland, Product.December2023v1);
-            expect(mockGasUrl).toHaveBeenCalledWith(Region.SouthEasternEngland, Product.December2023v1);
+            expect(mockElectricityUrl).toHaveBeenCalledWith(Region.SouthEasternEngland, Product.September2025v1);
+            expect(mockGasUrl).toHaveBeenCalledWith(Region.SouthEasternEngland, Product.September2025v1);
             expect(prices).toEqual([
                 {
                     date: "18/07",

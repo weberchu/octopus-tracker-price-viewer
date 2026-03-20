@@ -11,10 +11,10 @@ export type OctopusResult = {
 };
 
 export class Product {
-    static December2023v1 = new Product("December 2023 v1", "SILVER-23-12-06");
-    static April2023v1 = new Product("April 2024 v1", "SILVER-24-04-03");
     static December2024v1 = new Product("December 2024 v1", "SILVER-24-12-31");
-    static ALL = [Product.December2023v1, Product.April2023v1, Product.December2024v1];
+    static April2025v1 = new Product("April 2025 v1", "SILVER-25-04-11");
+    static September2025v1 = new Product("September 2025 v1", "SILVER-25-09-02");
+    static ALL = [Product.September2025v1, Product.April2025v1, Product.December2024v1];
     constructor(
         readonly name: string,
         readonly code: string

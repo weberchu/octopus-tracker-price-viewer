@@ -34,14 +34,14 @@ const generate = async (region: Region, product: Product) => {
  */
 describe.skip("local-generator", () => {
     test("generate", async () => {
-        await generate(Region.London, Product.April2023v1);
-        await generate(Region.London, Product.December2023v1);
+        await generate(Region.London, Product.April2025v1);
+        await generate(Region.London, Product.September2025v1);
         await generate(Region.London, Product.December2024v1);
-        await generate(Region.EasternEngland, Product.April2023v1);
-        await generate(Region.EasternEngland, Product.December2023v1);
+        await generate(Region.EasternEngland, Product.April2025v1);
+        await generate(Region.EasternEngland, Product.September2025v1);
         await generate(Region.EasternEngland, Product.December2024v1);
-        await generate(Region.MerseysideAndNorthernWales, Product.April2023v1);
-        await generate(Region.MerseysideAndNorthernWales, Product.December2023v1);
+        await generate(Region.MerseysideAndNorthernWales, Product.April2025v1);
+        await generate(Region.MerseysideAndNorthernWales, Product.September2025v1);
         await generate(Region.MerseysideAndNorthernWales, Product.December2024v1);
     });
 });

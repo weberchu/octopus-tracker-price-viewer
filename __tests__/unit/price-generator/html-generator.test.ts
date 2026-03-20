@@ -22,9 +22,9 @@ describe("html-generator", () => {
             ];
             const html = generateHtml(
                 Region.WestMidlands,
-                Product.December2023v1,
+                Product.September2025v1,
                 prices,
-                new Date("2023-11-20T12:34:56Z")
+                new Date("2025-11-20T12:34:56Z")
             );
 
             expect(html).toMatchSnapshot();
